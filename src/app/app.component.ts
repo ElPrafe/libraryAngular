@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'library';
+  year = 2022;
+  constructor(){
+
+  }
+  ngOnInit():void{
+    let year =2024;    
+  }
 }

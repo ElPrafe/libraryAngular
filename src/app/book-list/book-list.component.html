@@ -1,0 +1,26 @@
+<table class="table">
+    <thead>
+        <td>Name</td>
+        <td>Autor</td>
+        <td>Descripcion</td>
+        <td>Fecha</td>
+        <td>ImagenLibro</td>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{book.name}}</td>
+            <td>{{book.autor}}</td>
+            <td>{{book.descripcion}}</td>
+            <td>{{book.fecha}}</td>
+            <td ><img [src]="book.img" [alt]="book.name"></td>
+        </tr>
+        <tr>
+            <td>{{book.name}}</td>
+            <td>{{book.autor}}</td>
+            <td>{{book.descripcion}}</td>
+            <td>{{book.fecha}}</td>
+            <td><img [src]="book.img" [alt]="book.name"></td>
+        </tr>
+    </tbody>
+</table>
+<img src="assets/img/libro.jpg">
