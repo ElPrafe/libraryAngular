@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Book } from './Book';
 import { EventType } from '@angular/router';
+import { BookCartService } from '../book-cart.service';
 
 
 
@@ -9,7 +10,11 @@ import { EventType } from '@angular/router';
   templateUrl: './book-list.component.html',
   styleUrl: './book-list.component.scss'
 })
+
 export class BookListComponent{  
+  constructor(private cart : BookCartService){
+    
+  }
   books:Book[] = [
     {
     name : "Libro1",
@@ -40,26 +45,15 @@ export class BookListComponent{
     quantity:0,
   }
 ]
-upQuantity(book:Book){
-  if (book.stock>book.quantity){
-  book.quantity++;
+maxReached(event:String){
+  alert(event);
 }
-}
-downQuantity(book:Book){
+addToCart(book:Book){
   if (book.quantity>0){
-    book.quantity--
+    this.cart.addToCart(book);
+    book.stock-=book.quantity;
+    book.quantity=0;
   }
-}
-onChangeQuantity(event:KeyboardEvent, book:Book){
-  let inputElement = event.target as HTMLInputElement;
-  if(event.key>='0'&& event.key<='9'){
-    console.log(event.key);    
-    if (+inputElement.value>book.stock){
-      inputElement.value = book.stock.toString();
-      book.quantity = book.stock;
-    }
-  }else{
-    inputElement.value = inputElement.value.slice(0, -1);
-  }
+  
 }
 }

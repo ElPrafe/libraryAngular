@@ -8,6 +8,7 @@
         <td>Stock</td>
         <td>ImagenLibro</td>
         <td>Cantidad</td>
+        <td>#</td>
       </tr>
     </thead>
     <tbody>
@@ -27,10 +28,14 @@
                 <img width="100" class="img-thumbnail img-fluid" [src]="book.img" [alt]="book.name">
               </td>
               <td>
-                <button class="btn btn-primary btn-sm" (click)="downQuantity(book)">-</button>
-                <input type="number" inputmode="numeric" pattern="[0-9]*" class="no-spinners" [(ngModel)]="book.quantity" (keyup)="onChangeQuantity($event, book)">{{book.quantity}}
-                <button class="btn btn-primary btn-sm" (click)="upQuantity(book)">+</button>
+                @if (book.stock >0) {
+                  <app-input-integer [(quantity)]="book.quantity" [max]="book.stock" (maxReached)="maxReached($event)"></app-input-integer>
+                } @else {
+                  <p>SIN STOCK</p>  
+                }
+                
               </td>
+              <td><button class="btn btn-primary" (click)="addToCart(book)">Add</button></td>
             </tr>
           } @empty {
             <tr>
