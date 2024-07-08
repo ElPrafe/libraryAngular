@@ -1,9 +1,9 @@
 export interface Book{
     name: string;
-    autor:string;
-    descripcion:string;
+    author:string;
+    description:string;
     /*fecha:Date;*/
-    precio:number;
+    price:number;
     stock:number;
     img:string;
     quantity:number;
