@@ -11,12 +11,12 @@ export class BookDataService {
 
   constructor(private http: HttpClient) { }
 
-  public getAll(): Observable<Book[]>{
+  public getAll(): Observable<Book[]> {
     return this.http.get<Book[]>(URL).pipe(
-                      tap((books: Book[])=> books.forEach(book=>{
-                        book.quantity = 0;
-                        book.maxReached = false;
-                      }))
+      tap((books: Book[]) => books.forEach(book => {
+        book.quantity = 0;
+        book.maxReached = false;
+      }))
     );
   }
 }

@@ -10,9 +10,9 @@ import { Observable } from 'rxjs';
 })
 export class CartComponent {
   cartList$: Observable<Book[]>;
-  total$ : Observable<number>;
-  constructor(private cart : BookCartService){
-    this.cartList$ = cart.cartlist.asObservable();    
+  total$: Observable<number>;
+  constructor(private cart: BookCartService) {
+    this.cartList$ = cart.cartlist.asObservable();
     this.total$ = cart.total.asObservable();
   }
 }
