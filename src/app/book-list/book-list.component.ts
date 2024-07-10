@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Book } from './Book';
 import { EventType } from '@angular/router';
 import { BookCartService } from '../book-cart.service';
+import { BookDataService } from '../book-data.service';
 
 
 
@@ -12,15 +13,18 @@ import { BookCartService } from '../book-cart.service';
 })
 
 export class BookListComponent{  
-  constructor(private cart : BookCartService){
+  constructor(private cart : BookCartService, private booksDataService:BookDataService){
     
   }
-  books:Book[] = [
+  books:Book[]=[];
+  ngOnInit():void{
+    this.booksDataService.getAll().subscribe(books=>this.books = books);
+  }
+  /*books:Book[] = [
     {
     name : "Libro1",
     author: "Autor1",
-    description : "Desc1",
-    /*fecha: new Date("2001-1-10"),*/
+    description : "Desc1",    
     price:100,
     stock:3,
     img : "assets/img/libro.jpg",
@@ -44,10 +48,8 @@ export class BookListComponent{
     img : "assets/img/libro.jpg",
     quantity:0,
   }
-]
-maxReached(event:String){
-  alert(event);
-}
+]*/
+
 addToCart(book:Book){
   if (book.quantity>0){
     this.cart.addToCart(book);

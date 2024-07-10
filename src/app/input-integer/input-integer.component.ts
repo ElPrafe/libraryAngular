@@ -13,16 +13,17 @@ import { Book } from '../book-list/Book';
 export class InputIntegerComponent {
   @Input() quantity : number=0;
   @Input() max : number =100;
+  @Input() maxReached : Boolean =false;
   @Output()
   quantityChange: EventEmitter<number>=new EventEmitter<number>;
   @Output()
-  maxReached: EventEmitter<String>=new EventEmitter<String>;
+  maxReachedChange: EventEmitter<Boolean>=new EventEmitter<Boolean>;
   upQuantity(){
     if (this.max>this.quantity){
       this.quantity++;
       this.quantityChange.emit(this.quantity);    
     }else{
-      this.maxReached.emit("Se alcanzo el maximo");
+      this.maxReachedChange.emit(true);
   }
   }
   downQuantity(){

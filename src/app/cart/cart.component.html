@@ -1,14 +1,25 @@
-<p>Carro de Compras</p>
-@for (c of cartList$ |async; track c.name){
-<ul>
-    <li class = "asd">
-        {{c.name}}: {{c.quantity}}
-    </li>
-</ul>
-} @empty {
-<ul>
-    <li class = "dsa">
-        <span colspan="4">No hay libros para mostrar.</span>
-    <li>
-</ul>
-}
+<div class="container mx-1">
+    <h2>Carro de Compras</h2>
+    @for (c of cartList$ |async; track c.name){
+    <ul>
+        <li class="row border border-2 border-info rounded">
+            <div class="col-md-3">
+                <img width="75" class="img-thumbnail img-fluid" [src]="c.img" [alt]="c.name">
+            </div>
+            <div class="col-md-9">
+                <p class="mb-1">{{c.name}}</p>
+                <p class="mb-1">Cant: {{c.quantity}}</p>
+                <p class="mb-1">Precio: {{c.quantity*c.price | currency}}</p>
+            </div>               
+        </li>
+    </ul>
+    } @empty {
+    <ul>
+        <li class="dsa">
+            <span colspan="4">No hay libros para mostrar.</span>
+        </li>
+    </ul>
+    }
+    <h3>Total: {{total$ | async |currency}}</h3>
+    <button class="btn btn-primary">Comprar</button>
+</div>

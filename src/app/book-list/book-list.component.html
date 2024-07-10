@@ -1,42 +1,55 @@
-<table class="table table-dark table-striped">
+<table class="table table-primary table-striped">
   <thead>
-    <tr>
-      <td>Nombre</td>
-      <td>Autor</td>
-      <td>Descripcion</td>
-      <td>Precio</td>
-      <td>Stock</td>
-      <td>ImagenLibro</td>
-      <td>Cantidad</td>
-      <td>#</td>
+    <tr class="align-middle text-center">
+      <th class="col-1">ImagenLibro</th>
+      <th class="col-2">Nombre</th>
+      <th class="col-1">Autor</th>
+      <th class="col-2">Descripcion</th>
+      <th class="col-1">Precio</th>
+      <th class="col-1">Stock</th>
+      <th class="col-3">Cantidad</th>
+      <th class="col-1">Añadir al Carrito</th>
     </tr>
   </thead>
   <tbody>
     @for (book of books; track book.name) {
-    <tr class="align-middle">
-      <td>{{ book.name }}</td>
-      <td>{{ book.author }}</td>
-      <td>{{ book.description }}</td>
-      <td>{{ book.price }}</td>
-      @if (book.stock >0) {
-      <td>{{book.stock}}</td>
-      } @else {
-      <td>SIN STOCK</td>
-      }
-      <!--<td>{{ book.fecha | date : 'dd/MM/YYYY'}}</td>-->
+    <tr class="align-middle text-center">
       <td>
         <img width="100" class="img-thumbnail img-fluid" [src]="book.img" [alt]="book.name">
       </td>
+      <td class="text-start">{{ book.name }}</td>
+      <td class="text-start">{{ book.author }}</td>
+      <td class="text-start">{{ book.description }}</td>
+      <td>{{ book.price | currency}}</td>
+      @if (book.stock >0) {
+      <td>{{book.stock}}</td>
+      } @else {
+      <td>
+        <div class="alert alert-danger align-items-center mb-0" role="alert">
+          <p class="mb-0">
+            Sin Stock
+          </p>
+        </div>
+      </td>
+      }
+
       <td>
         @if (book.stock >0) {
+        @if(book.maxReached){
+        <div class="alert alert-warning align-items-center mb-2" role="alert">
+          <p class="mb-0">
+            Maximo stock de este producto.
+          </p>
+        </div>
+        }
         <app-input-integer [(quantity)]="book.quantity" [max]="book.stock"
-          (maxReached)="maxReached($event)"></app-input-integer>
+          [(maxReached)]="book.maxReached"></app-input-integer>
         } @else {
-        <p>SIN STOCK</p>
+        <p></p>
         }
 
       </td>
-      <td><button class="btn btn-primary" (click)="addToCart(book)">Add</button></td>
+      <td><button class="btn btn-primary" (click)="addToCart(book)">Añadir</button></td>
     </tr>
     } @empty {
     <tr>
