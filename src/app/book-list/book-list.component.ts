@@ -3,6 +3,7 @@ import { Book } from './Book';
 import { EventType } from '@angular/router';
 import { BookCartService } from '../book-cart.service';
 import { BookDataService } from '../book-data.service';
+import { Observable, Subscription } from 'rxjs';
 
 
 
@@ -13,12 +14,29 @@ import { BookDataService } from '../book-data.service';
 })
 
 export class BookListComponent {
+  cartItems: Book[] = [];
   constructor(private cart: BookCartService, private booksDataService: BookDataService) {
 
   }
   books: Book[] = [];
+
+
   ngOnInit(): void {
-    this.booksDataService.getAll().subscribe(books => this.books = books);
+    this.cart.cartlist.subscribe((cartItems: Book[]) => {
+      this.cartItems = cartItems;
+    });
+    this.booksDataService.getAll().subscribe(books => {
+      this.books = books;
+      if (this.cartItems.length > 0) {
+        this.cartItems.forEach(item => {
+          this.books.forEach(book => {
+            if (item.name == book.name) {
+              book.stock -= item.quantity;
+            }
+          })
+        });
+      }
+    });
   }
 
   addToCart(book: Book) {
